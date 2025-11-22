@@ -1,0 +1,352 @@
+zen_class> db.users.insertMany([
+...   { user_id: 1, name: "Arun", email: "arun@gmail.com" },
+...   { user_id: 2, name: "Bala", email: "bala@gmail.com" },
+...   { user_id: 3, name: "Chitra", email: "chitra@gmail.com" }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6921466dd779dc185bc73bf8'),
+    '1': ObjectId('6921466dd779dc185bc73bf9'),
+    '2': ObjectId('6921466dd779dc185bc73bfa')
+  }
+}
+...   { user_id: 1, problems_solved: 40 },
+...   { user_id: 2, problems_solved: 70 },
+...   { user_id: 3, problems_solved: 30 }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69214676d779dc185bc73bfb'),
+    '1': ObjectId('69214676d779dc185bc73bfc'),
+    '2': ObjectId('69214676d779dc185bc73bfd')
+  }
+}
+...   { user_id: 1, date: ISODate("2020-10-16"), status: "absent" },
+...   { user_id: 2, date: ISODate("2020-10-18"), status: "present" },
+...   { user_id: 3, date: ISODate("2020-10-20"), status: "absent" }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69214687d779dc185bc73bfe'),
+    '1': ObjectId('69214687d779dc185bc73bff'),
+    '2': ObjectId('69214687d779dc185bc73c00')
+  }
+}
+...   { topic_id: 1, topic_name: "HTML", date: ISODate("2020-10-05") },
+...   { topic_id: 2, topic_name: "CSS", date: ISODate("2020-10-15") },
+...   { topic_id: 3, topic_name: "JavaScript", date: ISODate("2020-11-01") }
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('692146c5d779dc185bc73c01'),
+    '1': ObjectId('692146c5d779dc185bc73c02'),
+    '2': ObjectId('692146c5d779dc185bc73c03')
+  }
+}
+zen_class> db.company_drives.insertMany([
+...   { drive_id: 1, company: "Google", date: ISODate("2020-10-20"), students: [1,2] },
+...   { drive_id: 2, company: "Amazon", date: ISODate("2020-10-29"), students: [2,3] },
+...   { drive_id: 3, company: "Infosys", date: ISODate("2020-11-05"), students: [1] }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('692146ebd779dc185bc73c04'),
+    '1': ObjectId('692146ebd779dc185bc73c05'),
+    '2': ObjectId('692146ebd779dc185bc73c06')
+  }
+}
+zen_class> db.mentors.insertMany([
+...   { mentor_id: 1, name: "Karthik", mentee_count: 18 },
+...   { mentor_id: 2, name: "Suresh", mentee_count: 10 }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('692146efd779dc185bc73c07'),
+    '1': ObjectId('692146efd779dc185bc73c08')
+  }
+}
+zen_class> db.topics.find()
+[
+  {
+    _id: ObjectId('692146c5d779dc185bc73c01'),
+    topic_id: 1,
+    topic_name: 'HTML',
+    date: ISODate('2020-10-05T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('692146c5d779dc185bc73c02'),
+    topic_id: 2,
+    topic_name: 'CSS',
+    date: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('692146c5d779dc185bc73c03'),
+    topic_id: 3,
+    topic_name: 'JavaScript',
+    date: ISODate('2020-11-01T00:00:00.000Z')
+  }
+]
+zen_class> db.topics.find({
+...   date: { $gte: ISODate("2020-10-01"), $lte: ISODate("2020-10-31") }
+... })
+[
+  {
+    _id: ObjectId('692146c5d779dc185bc73c01'),
+    topic_id: 1,
+    topic_name: 'HTML',
+    date: ISODate('2020-10-05T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('692146c5d779dc185bc73c02'),
+    topic_id: 2,
+    topic_name: 'CSS',
+    date: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen_class> db.topics.find({
+...   date: {
+...     $gte: ISODate("2020-10-01"),
+...     $lte: ISODate("2020-10-31")
+...   }
+... });
+[
+  {
+    _id: ObjectId('692146c5d779dc185bc73c01'),
+    topic_id: 1,
+    topic_name: 'HTML',
+    date: ISODate('2020-10-05T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('692146c5d779dc185bc73c02'),
+    topic_id: 2,
+    topic_name: 'CSS',
+    date: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen_class> db.company_drives.find({
+...   date: {
+...     $gte: ISODate("2020-10-15"),
+...     $lte: ISODate("2020-10-31")
+...   }
+... });
+[
+  {
+    _id: ObjectId('692146ebd779dc185bc73c04'),
+    drive_id: 1,
+    company: 'Google',
+    date: ISODate('2020-10-20T00:00:00.000Z'),
+    students: [ 1, 2 ]
+  },
+  {
+    _id: ObjectId('692146ebd779dc185bc73c05'),
+    drive_id: 2,
+    company: 'Amazon',
+    date: ISODate('2020-10-29T00:00:00.000Z'),
+    students: [ 2, 3 ]
+  }
+]
+zen_class> db.topics.find({
+...   date: {
+...     $gte: ISODate("2020-10-01"),
+
+zen_class> db.tasks.find({
+...   date: {
+...     $gte: ISODate("2020-10-01"),
+...     $lte: ISODate("2020-10-31")
+...   }
+... });
+
+zen_class> db.tasks.find({ date: { $gte: ISODate("2020-10-01"), $lte: ISODate("2020-10-31") } });
+
+zen_class> show tables
+attendance
+codekata
+company_drives
+mentors
+topics
+users
+zen_class> db.tasks.find()
+
+zen_class> db.tasks.insertMany([
+...   { task_id: 1, topic_id: 1, user_id: 1, submitted: true, date: ISODate("2020-10-05") },
+...   { task_id: 2, topic_id: 2, user_id: 2, submitted: false, date: ISODate("2020-10-15") },
+...   { task_id: 3, topic_id: 2, user_id: 3, submitted: false, date: ISODate("2020-10-16") }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69214be4d779dc185bc73c09'),
+    '1': ObjectId('69214be4d779dc185bc73c0a'),
+    '2': ObjectId('69214be4d779dc185bc73c0b')
+  }
+}
+zen_class> db.tasks.find()
+[
+  {
+    _id: ObjectId('69214be4d779dc185bc73c09'),
+    task_id: 1,
+    topic_id: 1,
+    user_id: 1,
+    submitted: true,
+    date: ISODate('2020-10-05T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('69214be4d779dc185bc73c0a'),
+    task_id: 2,
+    topic_id: 2,
+    user_id: 2,
+    submitted: false,
+    date: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('69214be4d779dc185bc73c0b'),
+    task_id: 3,
+    topic_id: 2,
+    user_id: 3,
+    submitted: false,
+    date: ISODate('2020-10-16T00:00:00.000Z')
+  }
+]
+zen_class> db.company_drives.find({});
+[
+  {
+    _id: ObjectId('692146ebd779dc185bc73c04'),
+    drive_id: 1,
+    company: 'Google',
+    date: ISODate('2020-10-20T00:00:00.000Z'),
+    students: [ 1, 2 ]
+  },
+  {
+    _id: ObjectId('692146ebd779dc185bc73c05'),
+    drive_id: 2,
+    company: 'Amazon',
+    date: ISODate('2020-10-29T00:00:00.000Z'),
+    students: [ 2, 3 ]
+  },
+  {
+    _id: ObjectId('692146ebd779dc185bc73c06'),
+    drive_id: 3,
+    company: 'Infosys',
+    date: ISODate('2020-11-05T00:00:00.000Z'),
+    students: [ 1 ]
+  }
+]
+zen_class> db.users.find({ user_id: { $in: [1, 2] } });
+[
+  {
+    _id: ObjectId('6921466dd779dc185bc73bf8'),
+    user_id: 1,
+    name: 'Arun',
+    email: 'arun@gmail.com'
+  },
+  {
+    _id: ObjectId('6921466dd779dc185bc73bf9'),
+    user_id: 2,
+    name: 'Bala',
+    email: 'bala@gmail.com'
+  }
+]
+zen_class> db.users.find({ user_id: { $in: [2, 3] } });
+[
+  {
+    _id: ObjectId('6921466dd779dc185bc73bf9'),
+    user_id: 2,
+    name: 'Bala',
+    email: 'bala@gmail.com'
+  },
+  {
+    _id: ObjectId('6921466dd779dc185bc73bfa'),
+    user_id: 3,
+    name: 'Chitra',
+    email: 'chitra@gmail.com'
+  }
+]
+zen_class> db.codekata.find({});
+[
+  {
+    _id: ObjectId('69214676d779dc185bc73bfb'),
+    user_id: 1,
+    problems_solved: 40
+  },
+  {
+    _id: ObjectId('69214676d779dc185bc73bfc'),
+    user_id: 2,
+    problems_solved: 70
+  },
+  {
+    _id: ObjectId('69214676d779dc185bc73bfd'),
+    user_id: 3,
+    problems_solved: 30
+  }
+]
+zen_class> db.mentors.find({
+...   mentee_count: { $gt: 15 }
+... });
+[
+  {
+    _id: ObjectId('692146efd779dc185bc73c07'),
+    mentor_id: 1,
+    name: 'Karthik',
+    mentee_count: 18
+  }
+]
+zen_class> db.attendance.find({
+...   date: {
+...     $gte: ISODate("2020-10-15"),
+...     $lte: ISODate("2020-10-31")
+...   },
+...   status: "absent"
+... });
+[
+  {
+    _id: ObjectId('69214687d779dc185bc73bfe'),
+    user_id: 1,
+    date: ISODate('2020-10-16T00:00:00.000Z'),
+    status: 'absent'
+  },
+  {
+    _id: ObjectId('69214687d779dc185bc73c00'),
+    user_id: 3,
+    date: ISODate('2020-10-20T00:00:00.000Z'),
+    status: 'absent'
+  }
+]
+zen_class> db.tasks.find({
+...   submitted: false,
+...   date: {
+...     $gte: ISODate("2020-10-15"),
+...     $lte: ISODate("2020-10-31")
+...   }
+... });
+[
+  {
+    _id: ObjectId('69214be4d779dc185bc73c0a'),
+    task_id: 2,
+    topic_id: 2,
+    user_id: 2,
+    submitted: false,
+    date: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('69214be4d779dc185bc73c0b'),
+    task_id: 3,
+    topic_id: 2,
+    user_id: 3,
+    submitted: false,
+    date: ISODate('2020-10-16T00:00:00.000Z')
+  }
+]
+zen_class> show collections;
+attendance
+codekata
+company_drives
+mentors
+tasks
+topics
+users
