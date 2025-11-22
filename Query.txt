@@ -1,0 +1,87 @@
+- Add Datas
+
+- Users
+db.users.insertMany([
+  { user_id: 1, name: "Arun", email: "arun@gmail.com" },
+  { user_id: 2, name: "Bala", email: "bala@gmail.com" },
+  { user_id: 3, name: "Chitra", email: "chitra@gmail.com" }
+])
+
+
+- Codekata
+db.codekata.insertMany([
+  { user_id: 1, problems_solved: 40 },
+  { user_id: 2, problems_solved: 70 },
+  { user_id: 3, problems_solved: 30 }
+])
+
+
+-- Attance 
+db.attendance.insertMany([
+  { user_id: 1, date: ISODate("2020-10-16"), status: "absent" },
+  { user_id: 2, date: ISODate("2020-10-18"), status: "present" },
+  { user_id: 3, date: ISODate("2020-10-20"), status: "absent" }
+])
+
+
+- Topics
+db.topics.insertMany([
+  { topic_id: 1, topic_name: "HTML", date: ISODate("2020-10-05") },
+  { topic_id: 2, topic_name: "CSS", date: ISODate("2020-10-15") },
+  { topic_id: 3, topic_name: "JavaScript", date: ISODate("2020-11-01") }
+])
+
+
+- Tasks
+db.tasks.insertMany([
+  { task_id: 1, topic_id: 1, user_id: 1, submitted: true, date: ISODate("2020-10-05") },
+  { task_id: 2, topic_id: 2, user_id: 2, submitted: false, date: ISODate("2020-10-15") },
+  { task_id: 3, topic_id: 2, user_id: 3, submitted: false, date: ISODate("2020-10-16") }
+])
+
+
+- Company_drives
+db.company_drives.insertMany([
+  { drive_id: 1, company: "Google", date: ISODate("2020-10-20"), students: [1,2] },
+  { drive_id: 2, company: "Amazon", date: ISODate("2020-10-29"), students: [2,3] },
+  { drive_id: 3, company: "Infosys", date: ISODate("2020-11-05"), students: [1] }
+])
+
+
+- Mentors
+db.mentors.insertMany([
+  { mentor_id: 1, name: "Karthik", mentee_count: 18 },
+  { mentor_id: 2, name: "Suresh", mentee_count: 10 }
+])
+
+
+
+
+Tase Queries :
+
+db.topics.find({
+  date: { $gte: ISODate("2020-10-01"), $lte: ISODate("2020-10-31") }
+})
+
+db.company_drives.find({
+  date: { $gte: ISODate("2020-10-15"), $lte: ISODate("2020-10-31") }
+})
+
+db.company_drives.find({})
+
+db.users.find({ user_id: { $in: [1, 2] } })
+
+db.codekata.find({})
+
+db.mentors.find({ mentee_count: { $gt: 15 } })
+
+db.attendance.find({
+  date: { $gte: ISODate("2020-10-15"), $lte: ISODate("2020-10-31") },
+  status: "absent"
+})
+
+db.tasks.find({
+  submitted: false,
+  date: { $gte: ISODate("2020-10-15"), $lte: ISODate("2020-10-31") }
+})
+
